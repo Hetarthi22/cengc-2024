@@ -1,0 +1,81 @@
+
+main{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+body{
+    background-color: #ffffff;
+}
+
+
+.nav{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px solid #000000;
+    padding: 5px;
+    margin-bottom: 5px;
+    
+}
+
+.nav a{
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.map{
+    border: 2px solid #000000;
+    padding: 5px;
+    margin-right: 5px;
+    
+}
+
+.rutter{
+    border: 2px solid #000000;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.about{
+    border: 2px solid #000000;
+    padding: 5px;
+}
+
+#title{
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+#logo{
+    margin-right: 15px;
+}
+
+.container-2{
+    border: 2px solid black;
+    margin-bottom: 5px;
+}
+
+input[type=file]{
+    display: flexbox;
+    justify-content: center;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+

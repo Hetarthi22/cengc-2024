@@ -19,7 +19,20 @@ Determine the geographic coordinates of a high-sailing pirate ship using picture
   pip install -r requirements.txt
   ```
 
-- Paste the absolute file path to the index.html and about.html files into your browser to view them.
+- Paste the absolute file path to the index.html and about.html files into your browser to view the UI.
+
+To run the backend, use the following command from within the project directory.
+
+```console
+python ./src/main.py <path/to/test/case/directory>
+```
+For example:
+
+```console
+python .\src\main.py '.\images\tests\2024-02-04 040400'
+```
+
+It is important you do not leave a trailing slash on the path name.
 
 ## Citations
 

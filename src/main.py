@@ -11,15 +11,16 @@ def main() -> None:
         return
 
     # Load our API key and authenticate
-
-    with open("../.api_key", "r") as file:
-        key = file.read()[:-1]
-
+    # Yes, I know this API key should not be in the code. However, I am trying to make running the demo as simple as
+    # possible for the programming director. This avoids him having to create a file and put the API key in it, and me
+    # finding a way to give him my API key. I will absolutely be changing my API key following this competition (and
+    # actually, deleting my account on the website).
+    key = "xfgiixgqacwkoabs"
     session = get_session_key(key)
 
     # Bundle the image files from our test case directory into a request for analysis
 
-    bundle = Bundle.from_dir(sys.argv[1])
+    bundle = Bundle.from_dir(sys.argv[1].replace("\\", "/"))  # sys.argv[1] is a passed file path.
     submission = BundledSubmission.from_bundle(bundle=bundle, session_key=session)
     submission.submit()
 

@@ -1,15 +1,34 @@
-# Wayfinder
+# C-Eng-C 2024
 
-The challenge is to take four constellation images taken from all sides of a ship (port, starboard, stern and bow) and
-use them to compute the latitude, longitude and heading of the ship.
+## Challenge
 
-## Technologies Used
+Determine the geographic coordinates of a high-sailing pirate ship using pictures of the starts at bow, stern, port, and starboard. The ship's heading, the date, and local solar time is London (longitude 0).
 
-Python 3.12.0 or greater is required to run the program.
+## Installation/Usage
 
-### Libraries
+- Requires Pythin 3.12.0+
+- Clone the repository:
 
-To install the libraries required to run this program, run `pip install -r requirements.txt`.
+    ```bash
+    git clone https://github.com/Hetarthi22/cengc-2024.git
+    ```
+
+- Run the following command in termnal to install all program requirements
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Citations
+
+### Libraries Used
 
 - Numpy (cite)
 - Pillow (cite)
+
+## Authors
+
+- Matteo Golin
+- Hetarthi Soni
+- Hamnah Qureshi
+- Grant Achuzia

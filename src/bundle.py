@@ -2,8 +2,6 @@ import json
 from dataclasses import dataclass
 import datetime as dt
 from typing import Any, Self
-from PIL import Image, ImageFile
-from PIL.GifImagePlugin import GifImageFile
 
 # All dates are in 2024 as per competition specifications
 YEAR: int = 2024
@@ -65,10 +63,10 @@ class Bundle:
 
     params: Parameters
     solution: Solution
-    port: GifImageFile
-    starboard: GifImageFile
-    stern: GifImageFile
-    bow: GifImageFile
+    port: str
+    starboard: str
+    stern: str
+    bow: str
 
     @classmethod
     def from_dir(cls, dirpath: str) -> Self:
@@ -77,10 +75,10 @@ class Bundle:
         return cls(
             params=Parameters.from_file(f"{dirpath}/parameters.json"),
             solution=Solution.from_file(f"{dirpath}/solution.txt"),
-            port=Image.open(f"{dirpath}/Port.gif"),  # type: ignore
-            bow=Image.open(f"{dirpath}/Bow.gif"),  # type: ignore
-            starboard=Image.open(f"{dirpath}/Starboard.gif"),  # type: ignore
-            stern=Image.open(f"{dirpath}/Stern.gif"),  # type: ignore
+            port=f"{dirpath}/Port.gif",  # type: ignore
+            bow=f"{dirpath}/Bow.gif",  # type: ignore
+            starboard=f"{dirpath}/Starboard.gif",  # type: ignore
+            stern=f"{dirpath}/Stern.gif",  # type: ignore
         )
 
     def __str__(self) -> str:

@@ -15,7 +15,44 @@
     
         <div class="container-2">
             <p id="title">Select Test Case</p>
-            <input type="file" class="file-explorer">
+            <input type="file" id="file-explorer" type="file" webkitdirectory directory multiple>
+            <ul id="listing"></ul>
+            
+            <script type="text/javascript">
+                let fileInput = document.getElementById('file-explorer');
+                     fileInput.addEventListener('change', () => {
+
+                    let output = document.getElementById("listing");
+                    for (const file of event.target.files) {
+
+                        let item = document.createElement("li");
+                        item.textContent = file.webkitRelativePath;
+
+                        console.log(item)
+                            if (item == ("Bow.gif")){
+                                bowImg = file;
+                                console.log("File is bow")
+                            }
+                            if (file.name == ("Port.gif")){
+                                bowImg = file;
+                                console.log("File is port")
+                            }
+                            if (file.name == ("Starboard.gif")){
+                                bowImg = file;
+                                console.log("File is star")
+                            }
+                            if (file.name == ("Stern.gif")){
+                                bowImg = file;
+                                console.log("File is stern")
+                            }
+
+                        output.appendChild(item);
+                    }
+                    
+                });
+            
+            </script>
+
         </div>
         
         <div class="container"> 

@@ -18,26 +18,20 @@
             <a href="\src\about.html">About</a>
         </div>
         
-        <div class="container-2">
         
-            <label for="file-upload" class="custom-file-upload">
-                Choose Test Cases
-            </label>
-        <input id="file-upload" type="file" accept="image/gif, imgae/png"/>
-        </div>
 
         <div class="container"> 
             <div class="map">
                 <p id="title">MAP</p>
-                <div class="image-container">
-                    <div class="image">
-                        <input type="'file" onchange="readURL(this)"
-                    </div>
-                    <div class="image"></div>
-                    <div class="image"></div>
-                    <div class="image"></div>
+                <div class="image-container" id="image-container">
+                    <div class="image" id="bow"></div>
+                    <div class="image" id="stern"></div>
+                    <div class="image" id="port"></div>
+                    <div class="image" id="startboard"></div>
                 </div>
             </div>
+
+        
             <div class="rutter">
                 <p id="title">RUTTER</p>
                 <div class="givens">
@@ -52,6 +46,53 @@
                     
                 </div>
             </div>
+        </div>
+
+        <div class="container-2">
+            <label for="file-upload" class="custom-file-upload">
+                Choose Test Cases
+            </label>
+            <input id="file-upload" type="file" webkitdirectory directory multiple>
+
+            <script type="text/javascript">
+                let fileInput = document.getElementById('file-upload');
+                fileInput.addEventListener('change', (event) => {
+                    console.log("hello")
+                    const container = document.getElementById("image-container")
+                    let getImgs = ""
+            
+                    for (const file of event.target.files) {
+                        console.log(file)
+                        // item.textContent = file.webkitRelativePath;
+                        // console.log(item)
+                            if (file["name"] == ("Bow.gif")){
+                                console.log("File is bow")
+                                getImgs += `<img id="star-image" src="${"../images/tests/" + file["webkitRelativePath"]}"/> \n`
+
+                            }
+                            if (file.name == ("Port.gif")){
+                                console.log("File is port")
+                                getImgs += `<img id="star-image" src="${"../images/tests/" +file["webkitRelativePath"]}"/>  \n` 
+
+                            }
+                            if (file.name == ("Starboard.gif")){
+                                console.log("File is star")
+                                getImgs += `<img id="star-image" src="${"../images/tests/"+ file["webkitRelativePath"]}"/> \n`
+
+                            }
+                            if (file.name == ("Stern.gif")){
+                                console.log("File is stern")
+                                getImgs += `<img id="star-image" src="${"../images/tests/"+ file["webkitRelativePath"]}"/>`
+
+                            }
+                        
+                    }
+                    container.innerHTML = getImgs
+                    
+                }, false,);
+            
+            </script>
+
         </div>
         
     </main>

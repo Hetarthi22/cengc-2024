@@ -26,13 +26,13 @@ class Job:
         data = response.json()
         return (data["dec"], data["ra"])
 
-    def get_status(self) -> bool:
-        """Returns true if the job was successful, false otherwise."""
+    def get_status(self) -> str:
+        """Returns the status of the request."""
         response = requests.get(f"{API_URL}/jobs/{self.id}")
         if response.status_code != 200:
             raise requests.HTTPError(response.status_code)
         data = response.json()
-        return data["status"] == "success"
+        return data["status"]
 
 
 @dataclass
@@ -53,6 +53,10 @@ class Submission:
 
         return len(data["job_calibrations"][0]) == 4
 
+    def solving(self) -> bool:
+        """Detects if the submission is still being solved."""
+        return self.get_status() == "solving"
+
     def _package_file(self, name: str) -> tuple[dict, bytes]:
         """
         Packages an image file into the format for being sent as a request.
@@ -71,6 +75,7 @@ class Submission:
             "allow_modifications": "d",
             "session": self.session_key,
             "allow_commercial_use": "d",
+            "use_sextractor": True,
             "parity": 0,  # Halves search time
         }
 
@@ -128,8 +133,10 @@ class BundledSubmission:
             bow=Submission.blank(session_key),
         )
 
-    def get_status(self) -> bool:
-        return self.port.get_status()
+    def finished(self) -> bool:
+        """Detects if the submission bundle as a whole has finished."""
+        return not self.port.solving() and not self.stern.solving() and not self.starboard.solving() and not
+        self.bow.solving()
 
 
 def get_session_key(api_key: str) -> str:

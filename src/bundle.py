@@ -1,7 +1,9 @@
 import json
 from dataclasses import dataclass
 import datetime as dt
-from typing import Self
+from typing import Any, Self
+from PIL import Image, ImageFile
+from PIL.GifImagePlugin import GifImageFile
 
 # All dates are in 2024 as per competition specifications
 YEAR: int = 2024
@@ -34,8 +36,52 @@ class Parameters:
 
     @classmethod
     def from_file(cls, filepath: str) -> Self:
+        """Load a parameter object from its JSON file."""
         with open(filepath, "r") as file:
             return cls.from_json(file.read())
 
     def __str__(self) -> str:
         return f"P(timestamp={self.timestamp.isoformat()}, heading={self.heading})"
+
+
+@dataclass
+class Solution:
+    """Represents a solution file's parameters."""
+
+    latitude: float  # Latitude in degrees
+    longitude: float  # Longitude in degrees
+    heading: int  # Heading in degrees
+
+    @classmethod
+    def from_file(cls, filepath: str) -> Self:
+        with open(filepath, "r") as file:
+            data = file.read()
+        return cls(0, 0, 0)  # TODO
+
+
+@dataclass
+class Bundle:
+    """A bundle of the four directional images, their parameters and their solution."""
+
+    params: Parameters
+    solution: Solution
+    port: GifImageFile
+    starboard: GifImageFile
+    stern: GifImageFile
+    bow: GifImageFile
+
+    @classmethod
+    def from_dir(cls, dirpath: str) -> Self:
+        """Creates a bundle from the data in a test case directory."""
+
+        return cls(
+            params=Parameters.from_file(f"{dirpath}/parameters.json"),
+            solution=Solution.from_file(f"{dirpath}/solution.txt"),
+            port=Image.open(f"{dirpath}/Port.gif"),  # type: ignore
+            bow=Image.open(f"{dirpath}/Bow.gif"),  # type: ignore
+            starboard=Image.open(f"{dirpath}/Starboard.gif"),  # type: ignore
+            stern=Image.open(f"{dirpath}/Stern.gif"),  # type: ignore
+        )
+
+    def __str__(self) -> str:
+        return f"B(params={self.params})"

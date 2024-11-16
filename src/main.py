@@ -1,12 +1,10 @@
-from bundle import Parameters
+from bundle import Bundle
 
 
 def main() -> None:
 
-    params = Parameters.from_file(
-        "../images/tests/2024-02-04 040400/parameters.json"
-    )
-    print(params)
+    bundle = Bundle.from_dir("../images/tests/2024-02-04 040400")
+    print(bundle)
 
 
 if __name__ == "__main__":

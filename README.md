@@ -21,10 +21,12 @@ Determine the geographic coordinates of a high-sailing pirate ship using picture
 
 ## Citations
 
+Our program makes use of a publicly available API for annotating and analyzing constellation images. This service is
+provided by [Astrometry.net][api-site]
+
 ### Libraries Used
 
-- Numpy (cite)
-- Pillow (cite)
+- requests
 
 ## Authors
 
@@ -32,3 +34,5 @@ Determine the geographic coordinates of a high-sailing pirate ship using picture
 - Hetarthi Soni
 - Hamnah Qureshi
 - Grant Achuzia
+
+[api-site]: https://nova.astrometry.net/api_help

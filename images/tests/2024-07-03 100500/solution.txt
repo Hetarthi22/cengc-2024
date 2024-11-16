@@ -1,0 +1,3 @@
+Latitude: 20.10
+Longitude: 149.55
+Heading: 48

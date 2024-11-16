@@ -1,0 +1,3 @@
+Latitude: 56.83
+Longitude: -160.59
+Heading: 342

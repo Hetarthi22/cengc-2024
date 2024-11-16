@@ -57,33 +57,22 @@
             <script type="text/javascript">
                 let fileInput = document.getElementById('file-upload');
                 fileInput.addEventListener('change', (event) => {
-                    console.log("hello")
                     const container = document.getElementById("image-container")
                     let getImgs = ""
             
                     for (const file of event.target.files) {
-                        console.log(file)
-                        // item.textContent = file.webkitRelativePath;
-                        // console.log(item)
                             if (file["name"] == ("Bow.gif")){
-                                console.log("File is bow")
                                 getImgs += `<img id="star-image" src="${"../images/tests/" + file["webkitRelativePath"]}"/> \n`
-
                             }
                             if (file.name == ("Port.gif")){
-                                console.log("File is port")
                                 getImgs += `<img id="star-image" src="${"../images/tests/" +file["webkitRelativePath"]}"/>  \n` 
-
                             }
                             if (file.name == ("Starboard.gif")){
-                                console.log("File is star")
                                 getImgs += `<img id="star-image" src="${"../images/tests/"+ file["webkitRelativePath"]}"/> \n`
 
                             }
                             if (file.name == ("Stern.gif")){
-                                console.log("File is stern")
                                 getImgs += `<img id="star-image" src="${"../images/tests/"+ file["webkitRelativePath"]}"/>`
-
                             }
                         
                     }

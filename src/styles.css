@@ -72,11 +72,6 @@ body{
     
 }
 
-.image{
-    border: 2px solid #000000;
-    padding: 5px;
-}
-
 .rutter{
     border: 2px solid #000000;
     margin-right: 5px;
@@ -102,7 +97,7 @@ body{
     border: 2px solid black;
     border-radius: 50%;
     width: 80px;
-   
+
 }
 
 .container-2{
@@ -132,4 +127,9 @@ input[type=file]{
 .custom-file-upload:hover{
     color:#395461;
     transform: scale(1.01);
+}
+
+#star-image{
+    width: 130px;
+    height: 130px;
 }

@@ -5,35 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astronavigators</title>
     <link rel="stylesheet" href="\src\styles.css" />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
 </head>
 <body>
     <main>
+       
+        
         <div class="nav">
             <a href="\src\index.html">Home</a>
             <a href="\src\index.html"><img src="\src\media\logo.png" class="logo"></a>
             <a href="\src\about.html">About</a>
         </div>
-    
+        
         <div class="container-2">
         
             <label for="file-upload" class="custom-file-upload">
-                Choose Files
+                Choose Test Cases
             </label>
-        <input id="file-upload" type="file" />
+        <input id="file-upload" type="file" accept="image/gif, imgae/png"/>
         </div>
-        
+
         <div class="container"> 
             <div class="map">
-                <p id="title">Map</p>
+                <p id="title">MAP</p>
                 <div class="image-container">
-                    <div class="image"></div>
+                    <div class="image">
+                        <input type="'file" onchange="readURL(this)"
+                    </div>
                     <div class="image"></div>
                     <div class="image"></div>
                     <div class="image"></div>
                 </div>
             </div>
             <div class="rutter">
-                <p id="title">Rutter</p>
+                <p id="title">RUTTER</p>
                 <div class="givens">
                     <p>Test Case: </p>
                     <p>Date: </p>

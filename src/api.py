@@ -3,7 +3,8 @@ from dataclasses import dataclass
 import requests
 import json
 import random
-from typing import Self
+import time
+from typing import Self, Optional
 
 # The base URL for making API requests
 API_URL: str = "http://nova.astrometry.net/api"
@@ -15,7 +16,7 @@ class Job:
 
     id: int
 
-    def get_coordinates(self) -> tuple[float, float]:
+    def get_coordinates(self) -> Optional[tuple[float, float]]:
         """
         Gets the right ascension (longitude) and declination (latitude) from the API.
         Returns a tuple of (latitude, longitude).
@@ -24,15 +25,18 @@ class Job:
         if response.status_code != 200:
             raise requests.HTTPError(response.status_code)
         data = response.json()
+        if data.get("ra") is None:
+            return None
         return (data["dec"], data["ra"])
 
-    def get_status(self) -> bool:
-        """Returns true if the job was successful, false otherwise."""
+    def get_status(self) -> str:
+        """Returns the status of the request."""
         response = requests.get(f"{API_URL}/jobs/{self.id}")
         if response.status_code != 200:
             raise requests.HTTPError(response.status_code)
+        print(response.raw)
         data = response.json()
-        return data["status"] == "success"
+        return data["status"]
 
 
 @dataclass
@@ -47,11 +51,16 @@ class Submission:
         response = requests.get(f"{API_URL}/submissions/{self.id}")
         if response.status_code != 200:
             raise requests.HTTPError(response.status_code)
+        print(response.json())
         data = response.json()
         if len(data["job_calibrations"]) == 0:
             return False
 
         return len(data["job_calibrations"][0]) == 4
+
+    def solving(self) -> bool:
+        """Detects if the submission is still being solved."""
+        return self.job.get_status() == "solving"
 
     def _package_file(self, name: str) -> tuple[dict, bytes]:
         """
@@ -71,6 +80,7 @@ class Submission:
             "allow_modifications": "d",
             "session": self.session_key,
             "allow_commercial_use": "d",
+            "use_sextractor": True,
             "parity": 0,  # Halves search time
         }
 
@@ -93,6 +103,21 @@ class Submission:
         if response.status_code != 200:
             raise requests.HTTPError(response.status_code)
         self.id = response.json()["subid"]
+
+    def queued(self) -> bool:
+        """Returns true if the submission is queued."""
+        response = requests.get(url=f"{API_URL}/submissions/{self.id}")
+        if response.status_code != 200:
+            raise requests.HTTPError(response.status_code)
+
+        data = response.json()
+        print(data)
+
+        if len(data["jobs"]) == 0 or data["jobs"][0] is None:
+            return False
+
+        self.job.id = response.json()["jobs"][0]
+        return True
 
     @classmethod
     def blank(cls, session_key: str) -> Self:
@@ -128,8 +153,57 @@ class BundledSubmission:
             bow=Submission.blank(session_key),
         )
 
-    def get_status(self) -> bool:
-        return self.port.get_status()
+    def queued(self) -> bool:
+        """Detects if all submissions in the bundle are queued."""
+        return self.port.queued() and self.stern.queued() and self.bow.queued() and self.starboard.queued()
+
+    def finished(self) -> bool:
+        """Detects if the submission bundle as a whole has finished."""
+
+        if not self.queued():
+            return False
+
+        return (
+            not self.port.solving()
+            and not self.stern.solving()
+            and not self.starboard.solving()
+            and not self.bow.solving()
+        )
+
+    def results(self) -> tuple[float, float]:
+        """Return latitude, longitude pair averaged from all the results."""
+        lat = 0
+        lon = 0
+        count = 0
+
+        coordinates = self.port.job.get_coordinates()
+        if coordinates is not None:
+            lat += coordinates[0]
+            lon += coordinates[1]
+            count += 1
+
+        coordinates = self.stern.job.get_coordinates()
+        if coordinates is not None:
+            lat += coordinates[0]
+            lon += coordinates[1]
+            count += 1
+
+        coordinates = self.bow.job.get_coordinates()
+        if coordinates is not None:
+            lat += coordinates[0]
+            lon += coordinates[1]
+            count += 1
+
+        coordinates = self.starboard.job.get_coordinates()
+        if coordinates is not None:
+            lat += coordinates[0]
+            lon += coordinates[1]
+            count += 1
+
+        # TODO: what if one of these has failed
+        lat /= 4
+        lon /= 4
+        return (lat, lon)
 
 
 def get_session_key(api_key: str) -> str:

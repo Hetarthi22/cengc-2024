@@ -1,3 +1,0 @@
-Latitude: 14.01
-Longitude: -22.66
-Heading: 314

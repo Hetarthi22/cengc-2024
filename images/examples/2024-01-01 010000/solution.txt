@@ -1,3 +1,0 @@
-Latitude: 45.00
-Longitude: 0.00
-Heading: 0

@@ -1,3 +1,0 @@
-Latitude: 58.15
-Longitude: -56.28
-Heading: 46

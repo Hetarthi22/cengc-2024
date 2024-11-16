@@ -1,0 +1,3 @@
+Latitude: 17.73
+Longitude: 58.19
+Heading: 201

@@ -6,7 +6,7 @@ Determine the geographic coordinates of a high-sailing pirate ship using picture
 
 ## Installation/Usage
 
-- Requires Pythin 3.12.0+
+- Requires Pythin 3.12.0+ ([Download Python](https://www.python.org/downloads/))
 - Clone the repository:
 
     ```bash
@@ -18,6 +18,8 @@ Determine the geographic coordinates of a high-sailing pirate ship using picture
     ```bash
     pip install -r requirements.txt
     ```
+
+- Paste the path to the index.html and about.html files into your browser.
 
 ## Citations
 

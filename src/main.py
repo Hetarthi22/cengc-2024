@@ -13,6 +13,8 @@ def main() -> None:
     submission = BundledSubmission.from_bundle(bundle=bundle, session_key=session)
     submission.submit()
     print(submission.get_status())
+    print(submission)
+
 
 if __name__ == "__main__":
     main()

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import requests
 import json
 import random
+from typing import Self
 
 # The base URL for making API requests
 API_URL: str = "http://nova.astrometry.net/api"
